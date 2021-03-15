@@ -13,13 +13,41 @@
   }
 }
 
-.App-header {
-  min-height: 100vh;
+.app-header {
+
+  height: 60px;
+  background: royalblue;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  color: #ffffff;
   font-size: calc(10px + 2vmin);
+}
+
+.app-name {
+  margin: 8px 10px
+}
+
+.logout-button {
+  background: royalblue;
+  background: transparent;
+  color: #ffffff;
+  font-size: calc(10px + 2vmin);
+  border: none;
+  margin: 8px 10px
+}
+
+.logout-button::hover {
+  background: royalblue;
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.main {
+  padding: 20px;
 }
 
 .App-link {
@@ -30,9 +58,11 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(10px)
   }
+
   100% {
     transform: translateY(0px)
   }

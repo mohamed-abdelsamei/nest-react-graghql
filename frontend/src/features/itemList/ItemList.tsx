@@ -1,25 +1,16 @@
-import { gql, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
 import Item from './Item';
 import { addItem, fetchItems } from './itemListSlice';
 
-const GET_POSTS_QUERY = gql`
-  {
-    posts {
-      id
-      text
-      createdAt
-    }
-  }
-`;
+import classes from './ItemList.module.css'
+
 
 export function ItemList() {
     const items = useSelector(
         (state: RootState) => state.items.posts
     );
-    // const { data, loading, error } = useQuery(GET_POSTS_QUERY);
 
     const dispatch = useDispatch();
 
@@ -41,7 +32,8 @@ export function ItemList() {
 
     useEffect(() => {
         dispatch(fetchItems())
-    }, [])
+    }, [dispatch])
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -50,7 +42,7 @@ export function ItemList() {
             </form>
 
             <h1>Items</h1>
-            <ul>
+            <ul className={classes.list}>
                 {items.map(item => (
                     <Item key={item.id} {...item} />
                 ))}

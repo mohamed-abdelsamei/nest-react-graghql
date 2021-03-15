@@ -2,6 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '../../app/store';
 import { CurrentUser, SignUpState, SignUpError, SignUpPayload } from './types';
 import * as api from '../../api'
+import { gql } from '@apollo/client';
+import { client } from '../../app/graphql';
+import { setAuthFailed, setAuthSuccess } from '../auth/authSlice';
+
+const SIGNUP_MUTATION = gql`
+  mutation signUp(
+        $email:String!
+        $name:String!
+        $password:String!
+
+    ){signUp(signUpInput:{name:$name,email:$email,password:$password}){
+      token
+      user{
+          id
+          name
+          email
+      }
+    }
+  }
+`;
 
 const initialState: SignUpState = {
     isLoading: false,
@@ -28,14 +48,19 @@ const signUpSlice = createSlice({
 
 export const {  setSignUpFailed, setLoading, setSignUpSuccess } = signUpSlice.actions
 // Asynchronous thunk action
-export function signUp(payload:SignUpPayload) {
+export function signUp({ name, email, password}:SignUpPayload) {
     return async (dispatch: AppDispatch) => {
         dispatch(setLoading(true))
         try {
-            const response = await api.register(payload)
-            const data = await response.data
-
-            dispatch(setSignUpSuccess(data))
+            try {
+                let { data } = await client.mutate({
+                    mutation: SIGNUP_MUTATION, variables: { email, password, name }
+                })
+                localStorage.setItem('token', data.signUp.token)
+                dispatch(setAuthSuccess(data.signUp.user))
+            } catch (error) {
+                dispatch(setAuthFailed(error))
+            }
         } catch (error) {
             dispatch(setSignUpFailed(error))
         }

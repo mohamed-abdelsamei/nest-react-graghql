@@ -1,0 +1,14 @@
+.list {
+    padding: 0
+}
+
+.item {
+    list-style: none;
+    height: 30px;
+    border: 1px solid #eeeeee;
+    /* width: 100%; */
+    padding: 4px;
+    margin: 4px;
+    display: flex;
+    justify-content: space-between;
+}

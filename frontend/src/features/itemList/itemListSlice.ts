@@ -15,25 +15,11 @@ const POSTS_QUERY = gql`
   }
 `;
 
-const CREATE_LINK_MUTATION = gql`
-  mutation PostMutation(
-    $description: String!
-    $url: String!
-  ) {
-    post(description: $description, url: $url) {
-      id
-      createdAt
-      url
-      description
-    }
-  }
-`;
+
 
 const POST_MUTATION = gql`
   mutation createPost(
-
         $text:String!
-    
     ){createPost(createPostInput:{text:$text}){
       id
       text

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import classes from './ItemList.module.css'
 interface ItemProps {
     id: string,
     text: string,
@@ -8,9 +8,9 @@ interface ItemProps {
 
 export default function Item({id, text, createdAt }: ItemProps) {
     return (
-        <li
+        <li className={classes.item}
         >
-            {id} - {text} - {new Date(+createdAt).toDateString()}
+            <span> {text}</span> <span>{new Date(+createdAt).toDateString()}</span>
         </li>
     )
 }

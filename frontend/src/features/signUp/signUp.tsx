@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { SignUpPayload } from './types';
 import { signUp } from './signUpSlice';
+import { Link, Redirect } from 'react-router-dom';
 
 
 const SignupSchema = Yup.object().shape({
@@ -15,6 +16,9 @@ const SignupSchema = Yup.object().shape({
 export function SignUp() {
     const error = useSelector(
         (state: RootState) => state.auth.error
+    );
+    const isAuth = useSelector(
+        (state: RootState) => state.auth.isAuth
     );
     const dispatch = useDispatch();
 
@@ -32,7 +36,9 @@ export function SignUp() {
         },
     });
 
-
+    if (isAuth) {
+        return <Redirect to={'/'} />;
+    }
     return (
         <div>
             <h1>Register</h1>
@@ -70,6 +76,8 @@ export function SignUp() {
 
                 <button type="submit">Submit</button>
             </form>
+            <Link to="/login">login</Link>
+
         </div>
     );
 }

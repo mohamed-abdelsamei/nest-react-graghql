@@ -13,5 +13,41 @@ code {
 }
 
 .error {
-  color:red;
+  color: red;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  max-width: 300px;
+  margin: 8px auto;
+}
+
+form {
+  text-align: center;
+}
+
+form button {
+  background: royalblue;
+  color: #ffffff;
+  font-size: calc(10px + 2vmin);
+  border: none;
+  height: 40px;
+  width: 300px;
+  margin: 8px auto;
+}
+
+form button::hover {
+  background: royalblue;
+  border: none;
+  color: white;
 }

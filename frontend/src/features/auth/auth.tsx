@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useFormik } from 'formik';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import * as Yup from 'yup';
 import { RootState } from '../../app/rootReducer';
 import { login } from './authSlice';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { LoginPayload } from './types';
 
 
@@ -14,6 +15,9 @@ const LoginSchema = Yup.object().shape({
 export function Auth() {
     const error = useSelector(
         (state: RootState) => state.auth.error
+    );
+    const isAuth = useSelector(
+        (state: RootState) => state.auth.isAuth
     );
     const dispatch = useDispatch();
 
@@ -30,7 +34,9 @@ export function Auth() {
         },
     });
 
-
+    if (isAuth) {
+        return <Redirect to={'/'} />;
+    }
     return (
         <div>
             <h1>Login</h1>
@@ -58,6 +64,7 @@ export function Auth() {
 
                 <button type="submit">Submit</button>
             </form>
+            <Link to="/register">new user?</Link>
         </div>
     );
 }
