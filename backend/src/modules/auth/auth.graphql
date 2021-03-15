@@ -1,0 +1,27 @@
+type User {
+  # Example field (placeholder)
+  id:Int
+  name: String
+  email: String
+}
+type Auth{
+    user:User
+    token:String
+}
+
+input SignUpInput {
+  # Example field (placeholder)
+  name: String
+  email: String
+  password: String
+}
+
+input LoginInput {
+  email: String
+  password: String
+}
+
+type Mutation {
+  signUp(signUpInput: SignUpInput!): Auth!
+  login(loginInput: LoginInput!): Auth!
+}
