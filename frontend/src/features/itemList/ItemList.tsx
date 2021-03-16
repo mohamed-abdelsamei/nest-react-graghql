@@ -38,7 +38,7 @@ export function ItemList() {
         <div>
             <form onSubmit={handleSubmit}>
                 <input value={title} onChange={handleChange} />
-                <button type="submit">Add Todo</button>
+                <button type="submit">Add Item</button>
             </form>
 
             <h1>Items</h1>

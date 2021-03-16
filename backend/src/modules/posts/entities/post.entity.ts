@@ -1,4 +1,12 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+} from 'sequelize-typescript';
+import { User } from 'src/modules/users/entities/user.entity';
 
 @Table
 export class Post extends Model {
@@ -15,4 +23,14 @@ export class Post extends Model {
     allowNull: false,
   })
   text: string;
+
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
 }

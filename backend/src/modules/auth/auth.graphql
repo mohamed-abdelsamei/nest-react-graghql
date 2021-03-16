@@ -21,6 +21,10 @@ input LoginInput {
   password: String
 }
 
+type Query {
+  me: User!
+}
+
 type Mutation {
   signUp(signUpInput: SignUpInput!): Auth!
   login(loginInput: LoginInput!): Auth!

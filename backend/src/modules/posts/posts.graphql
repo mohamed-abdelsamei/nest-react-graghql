@@ -3,6 +3,13 @@ type Post {
   id: Int!
   text: String
   createdAt: String!
+  user:User!
+}
+type User {
+  # Example field (placeholder)
+  id:Int
+  name: String
+  email: String
 }
 
 input CreatePostInput {

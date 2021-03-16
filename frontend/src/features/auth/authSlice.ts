@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, AppThunk } from '../../app/store';
-import { AuthError, AuthState, CurrentUser } from './types';
+import { AuthError, AuthState, User } from './types';
 import { gql } from '@apollo/client';
 import { client } from '../../app/graphql';
 
@@ -34,7 +34,7 @@ const authSlice = createSlice({
         setLoading: (state, { payload }: PayloadAction<boolean>) => {
             state.isLoading = payload
         },
-        setAuthSuccess: (state, { payload }: PayloadAction<CurrentUser>) => {
+        setAuthSuccess: (state, { payload }: PayloadAction<User>) => {
             state.currentUser = payload
             state.isAuth = true
         },

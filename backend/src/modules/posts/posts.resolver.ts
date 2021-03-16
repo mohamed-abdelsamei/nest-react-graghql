@@ -2,16 +2,23 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
+import { CurrentUser, GqlAuthGuard } from '../auth/gql-auth.guard';
+import { User } from '../users/entities/user.entity';
 
 @Resolver('Post')
 export class PostsResolver {
-  constructor(private readonly postsService: PostsService) {}
+  constructor(private readonly postsService: PostsService) { }
 
   @Mutation('createPost')
-  create(@Args('createPostInput') createPostInput: CreatePostInput) {
-    console.log(createPostInput);
-    return this.postsService.create(createPostInput);
+  @UseGuards(GqlAuthGuard)
+  async create(
+    @CurrentUser() user: User,
+    @Args('createPostInput') createPostInput: CreatePostInput,
+  ) {
+    let post = await this.postsService.create(createPostInput, user.id);
+    return await this.postsService.findOne(post.id);
+
   }
 
   @Query('posts')
@@ -25,10 +32,15 @@ export class PostsResolver {
   }
 
   @Mutation('updatePost')
-  async update(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
+  @UseGuards(GqlAuthGuard)
+  async update(
+    @CurrentUser() user: User,
+    @Args('updatePostInput') updatePostInput: UpdatePostInput,
+  ) {
     const post = await this.postsService.update(
       updatePostInput.id,
       updatePostInput,
+      user.id,
     );
     if (!post) throw new NotFoundException("This Post doesn't exist");
     return post;

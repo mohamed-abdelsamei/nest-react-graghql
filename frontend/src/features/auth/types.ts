@@ -1,4 +1,4 @@
-export interface CurrentUser {
+export interface User {
     id: string;
     name: string;
     email: string;
@@ -10,7 +10,7 @@ export interface AuthError {
 
 export interface AuthState {
     isAuth: boolean
-    currentUser?: CurrentUser|undefined;
+    currentUser?: User|undefined;
     isLoading: boolean
     error: AuthError
 

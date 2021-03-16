@@ -24,6 +24,8 @@ export const databaseProviders = [
       }
       const sequelize = new Sequelize(config);
       sequelize.addModels([User, Post]);
+      // User.hasMany(Post, { as: 'posts' })
+      // Post.belongsTo(User, { as: 'user' });
       await sequelize.sync();
       return sequelize;
     },

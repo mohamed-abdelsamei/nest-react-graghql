@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '../../app/store';
-import { CurrentUser, SignUpState, SignUpError, SignUpPayload } from './types';
+import { User, SignUpState, SignUpError, SignUpPayload } from './types';
 import * as api from '../../api'
 import { gql } from '@apollo/client';
 import { client } from '../../app/graphql';

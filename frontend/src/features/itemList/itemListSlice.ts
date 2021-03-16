@@ -11,6 +11,10 @@ const POSTS_QUERY = gql`
       id
       text
       createdAt
+      user{
+        id
+        name
+      }
     }
   }
 `;
@@ -24,6 +28,10 @@ const POST_MUTATION = gql`
       id
       text
       createdAt
+      user{
+        id
+        name
+      }
     }
   }
 `;
